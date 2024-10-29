@@ -1,3 +1,6 @@
+"use client";
+import { RefObject } from "react";
+
 const products = [
   {
     title: "Landing Page",
@@ -38,7 +41,11 @@ const products = [
   },
 ];
 
-export const ProductShowcase = ({ callToActionRef }) => {
+interface NavbarProps {
+  callToActionRef: RefObject<HTMLDivElement>; // Tipo de referencia para el elemento de contacto
+}
+
+export const ProductShowcase: React.FC<NavbarProps> = ({ callToActionRef }) => {
   const scrollToCallToAction = () => {
     if (callToActionRef.current) {
       callToActionRef.current.scrollIntoView({ behavior: "smooth" });
