@@ -1,8 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useState, RefObject } from "react";
 import MenuIcon from "../assets/icons/menu.svg";
 
-export const Navbar = ({
+interface NavbarProps {
+  featuresRef: RefObject<HTMLDivElement>; // Tipo de referencia para el elemento de la sección de características
+  productShowcaseRef: RefObject<HTMLDivElement>; // Tipo de referencia para el elemento de la sección de precios
+  callToActionRef: RefObject<HTMLDivElement>; // Tipo de referencia para el elemento de contacto
+}
+
+export const Navbar: React.FC<NavbarProps> = ({
   featuresRef,
   productShowcaseRef,
   callToActionRef,
