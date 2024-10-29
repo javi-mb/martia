@@ -5,7 +5,7 @@ export const CallToAction = () => {
   const [status, setStatus] = useState("");
   const [email, setEmail] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Evita la recarga de la página
     if (!email) {
       setStatus("Por favor, ingresa un correo electrónico.");
