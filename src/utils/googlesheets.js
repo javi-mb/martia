@@ -1,8 +1,16 @@
 const { google } = require("googleapis");
+require("dotenv").config();
+
+const credentials = JSON.parse(
+  Buffer.from(
+    process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64,
+    "base64"
+  ).toString("utf-8")
+);
 
 // Inicializa la librería cliente de Google y configura la autenticación con credenciales de la cuenta de servicio.
 const auth = new google.auth.GoogleAuth({
-  keyFile: "./google.json", // Ruta al archivo de clave de tu cuenta de servicio.
+  credentials,
   scopes: ["https://www.googleapis.com/auth/spreadsheets"], // Alcance para la API de Google Sheets.
 });
 
