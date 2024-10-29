@@ -1,4 +1,10 @@
-export const Hero = ({ callToActionRef }) => {
+import React, { RefObject } from "react";
+
+interface HeroProps {
+  callToActionRef: RefObject<HTMLDivElement>; // O el tipo adecuado según el elemento al que estás refiriéndote
+}
+
+export const Hero: React.FC<HeroProps> = ({ callToActionRef }) => {
   const scrollToCallToAction = () => {
     if (callToActionRef.current) {
       callToActionRef.current.scrollIntoView({ behavior: "smooth" });
