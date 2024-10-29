@@ -16,8 +16,6 @@ export const Feature = ({
   const border = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
-      // e.x
-      // e.y
       if (!border.current) return;
       const borderRect = border.current?.getBoundingClientRect();
       offsetX.set(e.x - borderRect.x);
