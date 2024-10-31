@@ -26,8 +26,8 @@ export default function Chatbot() {
     const updatedMessages = [...messages, newMessage];
     setMessages(updatedMessages);
 
-    // const api = 'https://api-herbot.vercel.app/chat'
-    const api = "http://localhost:3001/chat";
+    const api = "https://api-herbot.vercel.app/chat";
+    // const api = "http://localhost:3001/chat";
 
     try {
       console.log(updatedMessages, "mensajes");
