@@ -8,6 +8,7 @@ import { ProductShowcase } from "@/components/ProductShowcase";
 import { FAQs } from "@/components/FAQs";
 import { CallToAction } from "@/components/CallToAction";
 import { Footer } from "@/components/Footer";
+import Chatbot from "@/components/Chatbot";
 
 export default function Home() {
   const featuresRef = useRef(null); // Referencia para Features
@@ -16,6 +17,7 @@ export default function Home() {
 
   return (
     <>
+      <Chatbot />
       <Navbar
         featuresRef={featuresRef}
         productShowcaseRef={productShowcaseRef}
