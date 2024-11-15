@@ -3,10 +3,10 @@ import { appendToSheet } from "../../utils/googlesheets"; // Ajusta la ruta seg√
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    const { values } = req.body;
+    const { values, range } = req.body;
 
     try {
-      const response = await appendToSheet(values);
+      const response = await appendToSheet(values, range);
       res.status(200).json({ success: true, data: response.data });
     } catch (error) {
       console.error("Error writing to sheet:", error);

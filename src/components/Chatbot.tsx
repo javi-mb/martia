@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -18,6 +18,7 @@ export default function Chatbot() {
     { role: "assistant", content: "Hola soy Martbot, en qué puedo ayudarte?" },
   ]);
   const [value, setValue] = useState("");
+  const inactivityTimer = useRef<NodeJS.Timeout | null>(null);
 
   const toggleChat = () => setIsOpen(!isOpen);
 
@@ -26,11 +27,12 @@ export default function Chatbot() {
     const updatedMessages = [...messages, newMessage];
     setMessages(updatedMessages);
 
+    resetInactivityTimer();
+
     const api = "https://api-herbot.vercel.app/chat";
     // const api = "http://localhost:3001/chat";
 
     try {
-      console.log(updatedMessages, "mensajes");
       const response = await axios.post(api, {
         messages: updatedMessages,
         instruction:
@@ -47,6 +49,40 @@ export default function Chatbot() {
 
     setValue("");
   };
+
+  const resetInactivityTimer = () => {
+    if (inactivityTimer.current) {
+      clearTimeout(inactivityTimer.current);
+    }
+    inactivityTimer.current = setTimeout(sendConversationToSheet, 180000); // 3 minutos
+  };
+
+  const sendConversationToSheet = async () => {
+    const formattedConversation = messages
+      .map((msg) => `${msg.role}: '${msg.content}'`)
+      .join(",\n ");
+
+    const values = [[formattedConversation]];
+
+    try {
+      const response = await axios.post("/api/writeToSheet", {
+        values,
+        range: "F1", // Cambia el rango según tu configuración
+      });
+      console.log("Conversación guardada en Google Sheets:", response.data);
+    } catch (error) {
+      console.error("Error al guardar en Google Sheets:", error);
+    }
+  };
+
+  useEffect(() => {
+    resetInactivityTimer();
+    return () => {
+      if (inactivityTimer.current) {
+        clearTimeout(inactivityTimer.current);
+      }
+    };
+  }, [messages]);
 
   return (
     <div className="fixed bottom-6 right-8 z-50">

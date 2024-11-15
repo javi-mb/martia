@@ -20,7 +20,7 @@ export const CallToAction = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ values }),
+        body: JSON.stringify({ values, range: "A1" }),
       });
       const result = await response.json();
       if (result.success) {

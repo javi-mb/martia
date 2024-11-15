@@ -16,9 +16,8 @@ const auth = new google.auth.GoogleAuth({
 
 const spreadsheetId = "1HbkJrNM3sT_EWkbNmycI4A4RjuA1_G_GXSuZRqFaUCQ";
 
-async function appendToSheet(values) {
+async function appendToSheet(values, range) {
   const sheets = google.sheets({ version: "v4", auth }); // Crea una instancia cliente de la API de Sheets.
-  const range = "A1"; // El rango en la hoja para empezar a agregar datos.
   const valueInputOption = "USER_ENTERED"; // Cómo se deben interpretar los datos de entrada.
 
   const resource = { values };
